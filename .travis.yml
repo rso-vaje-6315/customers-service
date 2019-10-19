@@ -20,7 +20,6 @@ cache:
 install: mvn clean install -DskipTests=true --settings .ci/settings.xml
 
 script:
-  - mvn help:active-profiles
   - mvn clean package -DskipTests=true --settings .ci/settings.xml
   - docker build -t rso6315/customers-service .
 

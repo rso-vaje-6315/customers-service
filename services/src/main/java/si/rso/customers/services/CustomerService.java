@@ -19,7 +19,7 @@ public interface CustomerService {
     
     CustomerAddress getAddress(String addressId);
     
-    CustomerAddress createAddress(CustomerAddress address);
+    CustomerAddress createAddress(String accountId, CustomerAddress address);
     
     CustomerAddress updateAddress(String addressId, CustomerAddress address);
     
@@ -29,6 +29,6 @@ public interface CustomerService {
     
     CustomerPreference getPreference(String accountId, String key);
     
-    CustomerPreference setPreference(CustomerPreference preference);
+    CustomerPreference setPreference(String accountId, CustomerPreference preference);
     
 }

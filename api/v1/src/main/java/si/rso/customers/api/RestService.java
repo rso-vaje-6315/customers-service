@@ -1,6 +1,7 @@
 package si.rso.customers.api;
 
 import si.rso.customers.api.config.AuthRole;
+import si.rso.customers.api.endpoints.AddressEndpoint;
 import si.rso.customers.api.endpoints.CustomerEndpoint;
 import si.rso.customers.api.mappers.RestExceptionMapper;
 
@@ -11,7 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @ApplicationPath("/v1")
-@DeclareRoles({AuthRole.ADMIN, AuthRole.SELLER, AuthRole.CUSTOMER})
+@DeclareRoles({AuthRole.SERVICE, AuthRole.ADMIN, AuthRole.SELLER, AuthRole.CUSTOMER})
 public class RestService extends Application {
     
     @Override
@@ -19,6 +20,8 @@ public class RestService extends Application {
         Set<Class<?>> classes = new HashSet<>();
         
         classes.add(CustomerEndpoint.class);
+        classes.add(AddressEndpoint.class);
+        
         classes.add(RestExceptionMapper.class);
         
         return classes;

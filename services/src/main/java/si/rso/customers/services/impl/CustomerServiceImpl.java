@@ -73,7 +73,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
     
     @Override
-    public CustomerAddress createAddress(CustomerAddress address) {
+    public CustomerAddress createAddress(String accountId, CustomerAddress address) {
         return null;
     }
     
@@ -116,7 +116,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
     
     @Override
-    public CustomerPreference setPreference(CustomerPreference preference) {
+    public CustomerPreference setPreference(String accountId, CustomerPreference preference) {
         return null;
     }
 }

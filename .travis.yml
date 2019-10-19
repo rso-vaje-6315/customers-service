@@ -6,6 +6,10 @@ services:
 language: java
 dist: trusty
 
+branches:
+  only:
+    - develop
+
 jdk:
   - openjdk11
 

@@ -1,4 +1,6 @@
 # customers-service
+> Orchestration service for integration with Keycloak server. 
+
 ![build](https://travis-ci.org/rso-vaje-6315/customers-service.svg)
 
 ## Usage

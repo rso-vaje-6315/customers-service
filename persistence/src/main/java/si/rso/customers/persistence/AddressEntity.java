@@ -38,6 +38,12 @@ public class AddressEntity extends BaseEntity {
     @Column(name = "phone_number")
     private String phoneNumber;
     
+    @Column
+    private String country;
+    
+    @Column
+    private String email;
+    
     public String getAccountId() {
         return accountId;
     }
@@ -100,5 +106,21 @@ public class AddressEntity extends BaseEntity {
     
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+    
+    public String getCountry() {
+        return country;
+    }
+    
+    public void setCountry(String country) {
+        this.country = country;
+    }
+    
+    public String getEmail() {
+        return email;
+    }
+    
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

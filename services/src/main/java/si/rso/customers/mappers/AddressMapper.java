@@ -18,6 +18,8 @@ public class AddressMapper {
         address.setPost(entity.getPost());
         address.setPostalCode(entity.getPostalCode());
         address.setPhoneNumber(entity.getPhoneNumber());
+        address.setCountry(entity.getCountry());
+        address.setEmail(entity.getEmail());
         
         return address;
     }

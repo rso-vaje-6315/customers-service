@@ -18,6 +18,10 @@ public class CustomerAddress extends BaseType {
     
     private String phoneNumber;
     
+    private String country;
+    
+    private String email;
+    
     public String getAccountId() {
         return accountId;
     }
@@ -80,5 +84,21 @@ public class CustomerAddress extends BaseType {
     
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+    
+    public String getCountry() {
+        return country;
+    }
+    
+    public void setCountry(String country) {
+        this.country = country;
+    }
+    
+    public String getEmail() {
+        return email;
+    }
+    
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

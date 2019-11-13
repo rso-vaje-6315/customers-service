@@ -24,7 +24,7 @@
         <kumuluzee-swagger.version>1.2.2</kumuluzee-swagger.version>
         <kumuluzee-openapi.version>1.0.1</kumuluzee-openapi.version>
         <kumuluzee-fault-tolerance.version>2.0.0</kumuluzee-fault-tolerance.version>
-        <jackson.version>2.9.9</jackson.version>
+        <jackson.version>2.9.10.1</jackson.version>
         <postgres.version>42.2.7</postgres.version>
         <keycloak.version>7.0.0</keycloak.version>
         <rso-rest.version>1.2.0</rso-rest.version>

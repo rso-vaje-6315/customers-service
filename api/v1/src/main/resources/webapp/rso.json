@@ -1,0 +1,46 @@
+{
+  "clani": [
+    "mj6243@student.uni-lj.si",
+    "mb7628@student.uni-lj.si",
+    "gk6431@student.uni-lj.si"
+  ],
+  "opis_projekta": "Spletna trgovina s podporo za spremljanje podatkov o nakupih, izdelkih, hranjenje računov",
+  "mikrostoritve": [
+    "http://35.242.205.141:31012/v1/invoices/config",
+    "http://35.242.205.141:31010/v1/customers-unsecure",
+    "http://35.242.205.141:31011/health/live"
+  ],
+  "github": [
+    "https://github.com/rso-vaje-6315/invoice-service",
+    "https://github.com/rso-vaje-6315/customers-service",
+    "https://github.com/rso-vaje-6315/notification-service",
+    "https://github.com/rso-vaje-6315/shopping-cart-service",
+    "https://github.com/rso-vaje-6315/orders-service",
+    "https://github.com/rso-vaje-6315/products-service",
+    "https://github.com/rso-vaje-6315/stock-service",
+    "https://github.com/rso-vaje-6315/analytics-service",
+    "https://github.com/rso-vaje-6315/ratings-service"
+  ],
+  "travis": [
+    "https://travis-ci.org/rso-vaje-6315/invoice-service",
+    "https://travis-ci.org/rso-vaje-6315/customers-service",
+    "https://travis-ci.org/rso-vaje-6315/notification-service",
+    "https://travis-ci.org/rso-vaje-6315/shopping-cart-service",
+    "https://travis-ci.org/rso-vaje-6315/orders-service",
+    "https://travis-ci.org/rso-vaje-6315/products-service",
+    "https://travis-ci.org/rso-vaje-6315/stock-service",
+    "https://travis-ci.org/rso-vaje-6315/analytics-service",
+    "https://travis-ci.org/rso-vaje-6315/ratings-service"
+  ],
+  "dockerhub": [
+    "https://hub.docker.com/r/rso6315/invoice-service",
+    "https://hub.docker.com/r/rso6315/customers-service",
+    "https://hub.docker.com/r/rso6315/notification-service",
+    "https://hub.docker.com/r/rso6315/shopping-cart-service",
+    "https://hub.docker.com/r/rso6315/orders-service",
+    "https://hub.docker.com/r/rso6315/products-service",
+    "https://hub.docker.com/r/rso6315/stock-service",
+    "https://hub.docker.com/r/rso6315/analytics-service",
+    "https://hub.docker.com/r/rso6315/ratings-service"
+  ]
+}

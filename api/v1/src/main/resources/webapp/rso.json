@@ -9,7 +9,7 @@
     "http://35.242.205.141:31012/v1/invoices/config",
     "http://35.242.205.141:31010/v1/customers-unsecure",
     "http://35.242.205.141:31011/health/live",
-    "http://35.242.205.141:31018/v1/shopping-carts",
+    "http://35.242.205.141:31018/v1/shopping-cart/me",
     "http://35.242.205.141:31017/v1/orders/me",
     "http://35.242.205.141:31013/v1/products",
     "http://35.242.205.141:31014/v1/warehouses",

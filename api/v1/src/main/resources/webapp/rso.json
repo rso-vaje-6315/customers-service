@@ -12,7 +12,7 @@
     "http://35.242.205.141:31018/v1/shopping-carts",
     "http://35.242.205.141:31017/v1/orders",
     "http://35.242.205.141:31013/v1/products",
-    "stock",
+    "http://35.242.205.141:31014/v1/warehouses",
     "analy",
     "ratings"
   ],

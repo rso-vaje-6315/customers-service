@@ -13,8 +13,8 @@
     "http://35.242.205.141:31017/v1/orders",
     "http://35.242.205.141:31013/v1/products",
     "http://35.242.205.141:31014/v1/warehouses",
-    "analy",
-    "ratings"
+    "http://35.242.205.141:31016/v1/analytics/d29a07f7-24e2-4cc2-8aac-1e99c91d5db0",
+    "http://35.242.205.141:31015/v1/ratings/116640f1-0aa7-4321-9efc-2a9718a4e2f9"
   ],
   "github": [
     "https://github.com/rso-vaje-6315/invoice-service",

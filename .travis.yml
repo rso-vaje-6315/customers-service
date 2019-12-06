@@ -48,7 +48,7 @@ before_deploy:
 
 deploy:
   - provider: script
-    script: ./.ci/deploy.sh
+    script: bash ./.ci/deploy.sh
     skip_cleanup: true
     on:
       branch: develop

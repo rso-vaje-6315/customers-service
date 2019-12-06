@@ -10,10 +10,6 @@ if [[ -z "${GCLOUD_PASS}" ]]; then
 fi
 
 echo $GCLOUD_PASS | base64 --decode -i > ${HOME}/gcloud-service-key.json
-
-cat ${HOME}/gcloud-service-key.json | jq type
-
-
 gcloud auth activate-service-account --key-file ${HOME}/gcloud-service-key.json
 
 gcloud --quiet config set project $PROJECT_NAME
@@ -28,4 +24,4 @@ gcloud --quiet container clusters get-credentials $CLUSTER_NAME
 kubectl config view
 kubectl config current-context
 
-kubectl set image deployment/${KUBE_DEPLOYMENT_NAME} ${KUBE_DEPLOYMENT_CONTAINER}=rso6315/customers-service:latest
+kubectl set image deployment/${KUBE_DEPLOYMENT_NAME} ${KUBE_DEPLOYMENT_CONTAINER}=rso6315/customers-service:latest -n e-store

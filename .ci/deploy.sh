@@ -1,7 +1,6 @@
 #!/bin/bash
 
 set -e
-set -x
 
 # docker build -t gcr.io/${PROJECT_NAME}/${DOCKER_IMAGE_NAME}:$TRAVIS_COMMIT .
 
@@ -10,7 +9,13 @@ if [[ -z "${GCLOUD_PASS}" ]]; then
   exit 233
 fi
 
+apt-get install jq
+
 echo $GCLOUD_PASS | base64 --decode -i > ${HOME}/gcloud-service-key.json
+
+cat ${HOME}/gcloud-service-key.json | jq type
+
+
 gcloud auth activate-service-account --key-file ${HOME}/gcloud-service-key.json
 
 gcloud --quiet config set project $PROJECT_NAME

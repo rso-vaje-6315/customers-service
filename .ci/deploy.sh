@@ -24,5 +24,6 @@ gcloud --quiet container clusters get-credentials $CLUSTER_NAME
 kubectl config view
 kubectl config current-context
 
+kubectl scale --replicas=0 deployment ${KUBE_DEPLOYMENT_NAME} -n e-store
+kubectl scale --replicas=1 deployment ${KUBE_DEPLOYMENT_NAME} -n e-store
 # kubectl set image deployment/${KUBE_DEPLOYMENT_NAME} ${KUBE_DEPLOYMENT_CONTAINER}=rso6315/customers-service:latest -n e-store
-kubectl rollout restart deployment/${KUBE_DEPLOYMENT_NAME} -n e-store

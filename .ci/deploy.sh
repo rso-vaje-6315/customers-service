@@ -5,7 +5,7 @@ set -x
 
 # docker build -t gcr.io/${PROJECT_NAME}/${DOCKER_IMAGE_NAME}:$TRAVIS_COMMIT .
 
-if [[ -z "${TEST_ENV}" ]]; then
+if [[ -z "${GCLOUD_PASS}" ]]; then
   echo "Google credentials not set!"
   exit 233
 fi

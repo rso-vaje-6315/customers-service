@@ -1,6 +1,7 @@
 package si.rso.customers.services.impl;
 
 import com.mjamsek.auth.keycloak.exceptions.KeycloakException;
+import si.rso.customers.config.ServiceConfig;
 import si.rso.customers.integrations.keycloak.KeycloakAccountRegistration;
 import si.rso.customers.integrations.keycloak.KeycloakService;
 import si.rso.customers.lib.*;
@@ -34,6 +35,9 @@ public class CustomerServiceImpl implements CustomerService {
     
     @Inject
     private Validator validator;
+    
+    @Inject
+    private ServiceConfig serviceConfig;
     
     @Override
     public List<Account> queryAccounts(String query) {
@@ -130,6 +134,10 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     @Transactional
     public void registerUser(AccountRegistration account) {
+        
+        if (!serviceConfig.isRegistrationEnabled()) {
+            throw new RestException("Registration temporary disabled!");
+        }
         
         validator.assertNotBlank(account.getPassword());
         validator.assertNotBlank(account.getPasswordConfirmation());

@@ -6,7 +6,7 @@ import com.kumuluz.ee.configuration.cdi.ConfigValue;
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-@ConfigBundle("kumuluzee.security.keycloak")
+@ConfigBundle("kc")
 public class KeycloakConfig {
     
     @ConfigValue("realm")
@@ -18,7 +18,7 @@ public class KeycloakConfig {
     @ConfigValue("client-id")
     private String clientId;
     
-    @ConfigValue("client-secret")
+    @ConfigValue("auth.client-secret")
     private String clientSecret;
     
     public String getRealm() {

@@ -1,10 +1,10 @@
 package si.rso.customers.services.impl;
 
+import com.mjamsek.auth.keycloak.exceptions.KeycloakException;
+import si.rso.customers.integrations.keycloak.KeycloakAccountRegistration;
 import si.rso.customers.integrations.keycloak.KeycloakService;
-import si.rso.customers.lib.Account;
-import si.rso.customers.lib.CustomerAddress;
-import si.rso.customers.lib.CustomerDetails;
-import si.rso.customers.lib.CustomerPreference;
+import si.rso.customers.lib.*;
+import si.rso.customers.lib.config.AuthRole;
 import si.rso.customers.mappers.AddressMapper;
 import si.rso.customers.mappers.PreferencesMapper;
 import si.rso.customers.persistence.AddressEntity;
@@ -12,10 +12,14 @@ import si.rso.customers.persistence.CustomerPreferencesEntity;
 import si.rso.customers.services.CustomerService;
 import si.rso.rest.exceptions.NotFoundException;
 import si.rso.rest.exceptions.RestException;
+import si.rso.rest.exceptions.ValidationException;
+import si.rso.rest.services.Validator;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.*;
+import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,6 +31,9 @@ public class CustomerServiceImpl implements CustomerService {
     
     @Inject
     private KeycloakService keycloakService;
+    
+    @Inject
+    private Validator validator;
     
     @Override
     public List<Account> queryAccounts(String query) {
@@ -118,5 +125,54 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerPreference setPreference(String accountId, CustomerPreference preference) {
         return null;
+    }
+    
+    @Override
+    @Transactional
+    public void registerUser(AccountRegistration account) {
+        
+        validator.assertNotBlank(account.getPassword());
+        validator.assertNotBlank(account.getPasswordConfirmation());
+        
+        if (!account.getPassword().equals(account.getPasswordConfirmation())) {
+            throw new ValidationException("fields.mismatch.password")
+                .isValidationError()
+                .withDescription("Password mismatch!");
+        }
+        
+        validator.assertNotBlank(account.getUsername());
+        validator.assertNotBlank(account.getEmail());
+        validator.assertNotBlank(account.getFirstName());
+        validator.assertNotBlank(account.getLastName());
+        
+        KeycloakAccountRegistration keycloakAccount = new KeycloakAccountRegistration();
+        keycloakAccount.setEmail(account.getEmail());
+        keycloakAccount.setFirstName(account.getFirstName());
+        keycloakAccount.setLastName(account.getLastName());
+        keycloakAccount.setUsername(account.getUsername());
+        
+        keycloakAccount.setRealmRoles(new ArrayList<>());
+        keycloakAccount.getRealmRoles().add(AuthRole.CUSTOMER);
+        
+        var credential = new KeycloakAccountRegistration.Credentials();
+        credential.setTemporary(false);
+        credential.setType("password");
+        credential.setValue(account.getPassword());
+        
+        keycloakAccount.setCredentials(new ArrayList<>());
+        keycloakAccount.getCredentials().add(credential);
+        
+        try {
+            String accountId = keycloakService.registerAccount(keycloakAccount);
+    
+            CustomerPreferencesEntity customerPreference = new CustomerPreferencesEntity();
+            customerPreference.setAccountId(accountId);
+            customerPreference.setKey("lang");
+            customerPreference.setValue("sl");
+            em.persist(customerPreference);
+            em.flush();
+        } catch (KeycloakException e) {
+            throw new RestException("Error communicating with Keycloak!", 503);
+        }
     }
 }

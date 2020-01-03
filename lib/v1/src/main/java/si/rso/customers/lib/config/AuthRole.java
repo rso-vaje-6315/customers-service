@@ -1,4 +1,4 @@
-package si.rso.customers.api.config;
+package si.rso.customers.lib.config;
 
 public class AuthRole {
     public static final String ADMIN = "admin";

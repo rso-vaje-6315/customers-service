@@ -7,6 +7,8 @@ kumuluzee:
   server:
     show-server-info: false
     base-url: http://localhost:8080
+    http:
+      port: 8080
   cors-filter:
     servlet:
       allow-origin: "*"
@@ -40,16 +42,9 @@ kumuluzee:
       password: postgres
       pool:
         max-size: 20
-  security:
-    keycloak:
-      json: '{
-               "realm": "rso",
-               "auth-server-url": "https://keycloak.mjamsek.com/auth",
-               "ssl-required": "external",
-               "resource": "customers-service",
-               "confidential-port": 0
-             }'
-      realm: rso
-      auth-server-url: https://keycloak.mjamsek.com/auth
-      client-id: customers-service
-      client-secret: not_set
+kc:
+  realm: rso
+  auth-server-url: https://keycloak.mjamsek.com/auth
+  client-id: customers-service
+  auth:
+    client-secret: not_set

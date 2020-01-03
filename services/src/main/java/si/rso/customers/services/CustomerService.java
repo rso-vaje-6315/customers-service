@@ -1,9 +1,6 @@
 package si.rso.customers.services;
 
-import si.rso.customers.lib.Account;
-import si.rso.customers.lib.CustomerAddress;
-import si.rso.customers.lib.CustomerDetails;
-import si.rso.customers.lib.CustomerPreference;
+import si.rso.customers.lib.*;
 
 import java.util.List;
 
@@ -30,5 +27,7 @@ public interface CustomerService {
     CustomerPreference getPreference(String accountId, String key);
     
     CustomerPreference setPreference(String accountId, CustomerPreference preference);
+    
+    void registerUser(AccountRegistration account);
     
 }

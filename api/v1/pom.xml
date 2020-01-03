@@ -51,10 +51,6 @@
             <artifactId>kumuluzee-logs-log4j2</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.kumuluz.ee.security</groupId>
-            <artifactId>kumuluzee-security-keycloak</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.kumuluz.ee.openapi</groupId>
             <artifactId>kumuluzee-openapi</artifactId>
         </dependency>
@@ -67,12 +63,12 @@
 <!--            <artifactId>kumuluzee-fault-tolerance-smallrye</artifactId>-->
 <!--        </dependency>-->
         <dependency>
-            <groupId>org.keycloak</groupId>
-            <artifactId>keycloak-jetty94-adapter</artifactId>
-        </dependency>
-        <dependency>
             <groupId>si.rso.rest</groupId>
             <artifactId>rest-utils</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.mjamsek.auth</groupId>
+            <artifactId>kumuluzee-keycloak-integration-lib</artifactId>
         </dependency>
     </dependencies>
 

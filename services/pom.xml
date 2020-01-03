@@ -55,12 +55,12 @@
             <artifactId>jackson-annotations</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.keycloak</groupId>
-            <artifactId>keycloak-jetty94-adapter</artifactId>
-        </dependency>
-        <dependency>
             <groupId>si.rso.rest</groupId>
             <artifactId>rest-utils</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.mjamsek.auth</groupId>
+            <artifactId>kumuluzee-keycloak-integration-lib</artifactId>
         </dependency>
     </dependencies>
 

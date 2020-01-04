@@ -9,11 +9,22 @@ import javax.enterprise.context.ApplicationScoped;
 @ConfigBundle(value = "service-config", watch = true)
 public class ServiceConfig {
     
+    @ConfigValue(value = "sick", watch = true)
+    private boolean sick;
+    
     @ConfigValue("maintenance")
     private boolean maintenance;
     
     @ConfigValue("registration-enabled")
     private boolean registrationEnabled;
+    
+    public boolean isSick() {
+        return sick;
+    }
+    
+    public void setSick(boolean sick) {
+        this.sick = sick;
+    }
     
     public boolean isMaintenance() {
         return maintenance;

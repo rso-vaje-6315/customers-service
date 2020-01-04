@@ -70,5 +70,6 @@ kc:
   auth:
     client-secret: not_set
 service-config:
+  sick: false
   maintenance: false
   registration-enabled: true

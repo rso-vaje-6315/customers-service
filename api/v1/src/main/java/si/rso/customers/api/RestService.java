@@ -4,9 +4,12 @@ import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.servers.Server;
-import si.rso.customers.api.config.AuthRole;
+import si.rso.customers.api.endpoints.PlagueEndpoint;
+import si.rso.customers.api.mappers.ValidationExceptionMapper;
+import si.rso.customers.lib.config.AuthRole;
 import si.rso.customers.api.endpoints.AddressEndpoint;
 import si.rso.customers.api.endpoints.CustomerEndpoint;
+import si.rso.customers.api.endpoints.RegisterEndpoint;
 import si.rso.customers.api.mappers.RestExceptionMapper;
 
 import javax.annotation.security.DeclareRoles;
@@ -30,8 +33,11 @@ public class RestService extends Application {
         
         classes.add(CustomerEndpoint.class);
         classes.add(AddressEndpoint.class);
+        classes.add(RegisterEndpoint.class);
+        classes.add(PlagueEndpoint.class);
         
         classes.add(RestExceptionMapper.class);
+        classes.add(ValidationExceptionMapper.class);
         
         return classes;
     }

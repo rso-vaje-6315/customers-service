@@ -1,22 +1,25 @@
 package si.rso.customers.api.endpoints;
 
-import com.kumuluz.ee.security.annotations.Secure;
+import com.kumuluz.ee.logs.cdi.Log;
+import com.mjamsek.auth.keycloak.annotations.AuthenticatedAllowed;
+import com.mjamsek.auth.keycloak.annotations.RolesAllowed;
+import com.mjamsek.auth.keycloak.annotations.SecureResource;
+import com.mjamsek.auth.keycloak.models.AuthContext;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import si.rso.customers.api.config.AuthRole;
+import org.eclipse.microprofile.metrics.annotation.Counted;
+import org.eclipse.microprofile.metrics.annotation.Timed;
 import si.rso.customers.lib.Account;
 import si.rso.customers.lib.CustomerAddress;
 import si.rso.customers.lib.CustomerDetails;
 import si.rso.customers.lib.CustomerPreference;
-import si.rso.customers.providers.AuthContext;
+import si.rso.customers.lib.config.AuthRole;
 import si.rso.customers.services.CustomerService;
 import si.rso.rest.exceptions.dto.ExceptionResponse;
 
-import javax.annotation.security.PermitAll;
-import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -24,11 +27,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URI;
 
+@Log
 @Path("/customers")
 @RequestScoped
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@Secure
+@SecureResource
 public class CustomerEndpoint {
     
     @Inject
@@ -45,6 +49,7 @@ public class CustomerEndpoint {
         })
     @GET
     @RolesAllowed({AuthRole.SERVICE, AuthRole.ADMIN, AuthRole.SELLER})
+    @Timed(name = "account-query-time")
     public Response queryAccounts(@QueryParam("query") @DefaultValue("") String query) {
         return Response.ok(customerService.queryAccounts(query)).build();
     }
@@ -60,6 +65,7 @@ public class CustomerEndpoint {
     @GET
     @Path("/{accountId}")
     @RolesAllowed({AuthRole.SERVICE, AuthRole.ADMIN, AuthRole.SELLER})
+    @Timed(name = "get-account-time")
     public Response getAccount(
         @PathParam("accountId") String accountId,
         @QueryParam("expand") @DefaultValue("true") boolean expand
@@ -80,7 +86,8 @@ public class CustomerEndpoint {
         })
     @GET
     @Path("/me")
-    @PermitAll
+    @AuthenticatedAllowed
+    @Timed(name = "get-account-time")
     public Response getAccount(@QueryParam("expand") @DefaultValue("true") boolean expand) {
         if (expand) {
             return Response.ok(customerService.getCustomer(authContext.getId())).build();
@@ -113,7 +120,7 @@ public class CustomerEndpoint {
         })
     @GET
     @Path("me/addresses")
-    @PermitAll
+    @AuthenticatedAllowed
     public Response getAddresses() {
         return Response.ok(customerService.getAddresses(authContext.getId())).build();
     }
@@ -126,7 +133,8 @@ public class CustomerEndpoint {
         })
     @POST
     @Path("me/addresses")
-    @PermitAll
+    @AuthenticatedAllowed
+    @Counted(name = "create-address-count")
     public Response createAddress(CustomerAddress address) {
         CustomerAddress createdAddress = customerService.createAddress(authContext.getId(), address);
         return Response
@@ -159,7 +167,7 @@ public class CustomerEndpoint {
         })
     @GET
     @Path("me/preferences")
-    @PermitAll
+    @AuthenticatedAllowed
     public Response getPreferences() {
         return Response.ok(customerService.getPreferences(authContext.getId())).build();
     }
@@ -189,7 +197,7 @@ public class CustomerEndpoint {
         })
     @GET
     @Path("me/preferences/{key}")
-    @PermitAll
+    @AuthenticatedAllowed
     public Response getPreference(@PathParam("key") String key) {
         return Response.ok(customerService.getPreference(authContext.getId(), key)).build();
     }
@@ -202,7 +210,8 @@ public class CustomerEndpoint {
         })
     @POST
     @Path("me/preferences")
-    @PermitAll
+    @AuthenticatedAllowed
+    @Counted(name = "set-preference-count")
     public Response setPreference(CustomerPreference preference) {
         CustomerPreference setPreference = customerService.setPreference(authContext.getId(), preference);
         return Response.ok(setPreference).build();

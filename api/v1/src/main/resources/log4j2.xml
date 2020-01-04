@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="INFO">
+<Configuration name="customers-service">
     <Appenders>
-        <Console name="Console" target="SYSTEM_OUT">
+        <Console name="console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
         </Console>
-        <!--<File name="MyFile" fileName="all.log" immediateFlush="false" append="false">-->
-        <!--<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>-->
-        <!--</File>-->
+        <Socket name="logstash" host="2034b16a-d2cd-4921-87d9-b890b8a2b74f-ls.logit.io" port="17244" protocol="tcp">
+            <JSONLayout complete="false" compact="true" eventEol="true" charset="UTF-8" properties="true"/>
+        </Socket>
     </Appenders>
     <Loggers>
-        <Root level="info">
-            <AppenderRef ref="Console" />
-            <!--<AppenderRef ref="MyFile"/>-->
+        <Root level="all">
+            <AppenderRef ref="console" level="info"/>
+            <AppenderRef ref="logstash" level="trace"/>
         </Root>
     </Loggers>
 </Configuration>

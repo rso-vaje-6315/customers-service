@@ -1,36 +1,34 @@
 package si.rso.customers.api.endpoints;
 
-import com.kumuluz.ee.security.annotations.Secure;
+import com.kumuluz.ee.logs.cdi.Log;
+import com.mjamsek.auth.keycloak.annotations.AuthenticatedAllowed;
+import com.mjamsek.auth.keycloak.annotations.RolesAllowed;
+import com.mjamsek.auth.keycloak.annotations.SecureResource;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import si.rso.customers.api.config.AuthRole;
 import si.rso.customers.lib.CustomerAddress;
-import si.rso.customers.providers.AuthContext;
+import si.rso.customers.lib.config.AuthRole;
 import si.rso.customers.services.CustomerService;
 import si.rso.rest.exceptions.dto.ExceptionResponse;
 
-import javax.annotation.security.PermitAll;
-import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+@Log
 @Path("/addresses")
 @RequestScoped
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@Secure
+@SecureResource
 public class AddressEndpoint {
     
     @Inject
     private CustomerService customerService;
-    
-    @Inject
-    private AuthContext authContext;
     
     @Operation(description = "Returns address with given id.",
         summary = "Returns address.", tags = "address",
@@ -57,7 +55,7 @@ public class AddressEndpoint {
         })
     @PUT
     @Path("/{addressId}")
-    @PermitAll
+    @AuthenticatedAllowed
     public Response updateAddress(@PathParam("addressId") String addressId, CustomerAddress address) {
         CustomerAddress updatedAddress = customerService.updateAddress(addressId, address);
         return Response.ok(updatedAddress).build();
@@ -73,7 +71,7 @@ public class AddressEndpoint {
         })
     @DELETE
     @Path("/{addressId}")
-    @PermitAll
+    @AuthenticatedAllowed
     public Response removeAddress(@PathParam("addressId") String addressId) {
         customerService.removeAddress(addressId);
         return Response.noContent().build();

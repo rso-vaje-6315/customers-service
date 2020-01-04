@@ -1,0 +1,36 @@
+syntax = "proto3";
+option java_package = "grpc";
+
+service CustomersService {
+    rpc getCustomer(CustomerRequest) returns (CustomerResponse) {};
+}
+
+message CustomerRequest {
+    string customerId = 1;
+    string addressId = 2;
+}
+
+message CustomerResponse {
+    Account account = 1;
+    CustomerAddress address = 2;
+}
+
+message Account {
+    string id = 1;
+    string firstName = 2;
+    string lastName = 3;
+}
+
+message CustomerAddress {
+    string id = 1;
+    string accountId = 2;
+    string firstName = 3;
+    string lastName = 4;
+    string street = 5;
+    string streetNumber = 6;
+    string postalCode = 7;
+    string post = 8;
+    string phoneNumber = 9;
+    string country = 10;
+    string email = 11;
+}

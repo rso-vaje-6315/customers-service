@@ -63,6 +63,11 @@ kumuluzee:
     web-instrumentation:
       - name: customers-endpoint
         url-pattern: /v1/customers/*
+  grpc:
+    server:
+      url: localhost
+      http:
+        port: 8443
 kc:
   realm: rso
   auth-server-url: https://keycloak.mjamsek.com/auth

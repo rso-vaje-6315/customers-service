@@ -55,7 +55,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
     
     @CircuitBreaker
-    @Timeout
+    @Timeout(value = 3000)
     @Override
     public Account getAccount(String accountId) {
         return keycloakService.getAccount(accountId);

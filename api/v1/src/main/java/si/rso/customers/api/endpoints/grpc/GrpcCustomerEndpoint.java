@@ -48,6 +48,7 @@ public class GrpcCustomerEndpoint extends CustomersServiceGrpc.CustomersServiceI
             responseObserver.onNext(response);
             responseObserver.onCompleted();
         } catch (Exception e) {
+            e.printStackTrace();
             responseObserver.onError(e);
         }
     }

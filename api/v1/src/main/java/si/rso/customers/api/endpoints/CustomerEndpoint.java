@@ -1,19 +1,22 @@
 package si.rso.customers.api.endpoints;
 
+import com.kumuluz.ee.logs.cdi.Log;
 import com.mjamsek.auth.keycloak.annotations.AuthenticatedAllowed;
 import com.mjamsek.auth.keycloak.annotations.RolesAllowed;
 import com.mjamsek.auth.keycloak.annotations.SecureResource;
+import com.mjamsek.auth.keycloak.models.AuthContext;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import org.eclipse.microprofile.metrics.annotation.Counted;
+import org.eclipse.microprofile.metrics.annotation.Timed;
 import si.rso.customers.lib.Account;
 import si.rso.customers.lib.CustomerAddress;
 import si.rso.customers.lib.CustomerDetails;
 import si.rso.customers.lib.CustomerPreference;
 import si.rso.customers.lib.config.AuthRole;
-import si.rso.customers.providers.AuthContext;
 import si.rso.customers.services.CustomerService;
 import si.rso.rest.exceptions.dto.ExceptionResponse;
 
@@ -24,6 +27,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URI;
 
+@Log
 @Path("/customers")
 @RequestScoped
 @Produces(MediaType.APPLICATION_JSON)
@@ -45,6 +49,7 @@ public class CustomerEndpoint {
         })
     @GET
     @RolesAllowed({AuthRole.SERVICE, AuthRole.ADMIN, AuthRole.SELLER})
+    @Timed(name = "account-query-time")
     public Response queryAccounts(@QueryParam("query") @DefaultValue("") String query) {
         return Response.ok(customerService.queryAccounts(query)).build();
     }
@@ -60,6 +65,7 @@ public class CustomerEndpoint {
     @GET
     @Path("/{accountId}")
     @RolesAllowed({AuthRole.SERVICE, AuthRole.ADMIN, AuthRole.SELLER})
+    @Timed(name = "get-account-time")
     public Response getAccount(
         @PathParam("accountId") String accountId,
         @QueryParam("expand") @DefaultValue("true") boolean expand
@@ -81,6 +87,7 @@ public class CustomerEndpoint {
     @GET
     @Path("/me")
     @AuthenticatedAllowed
+    @Timed(name = "get-account-time")
     public Response getAccount(@QueryParam("expand") @DefaultValue("true") boolean expand) {
         if (expand) {
             return Response.ok(customerService.getCustomer(authContext.getId())).build();
@@ -127,6 +134,7 @@ public class CustomerEndpoint {
     @POST
     @Path("me/addresses")
     @AuthenticatedAllowed
+    @Counted(name = "create-address-count")
     public Response createAddress(CustomerAddress address) {
         CustomerAddress createdAddress = customerService.createAddress(authContext.getId(), address);
         return Response
@@ -203,6 +211,7 @@ public class CustomerEndpoint {
     @POST
     @Path("me/preferences")
     @AuthenticatedAllowed
+    @Counted(name = "set-preference-count")
     public Response setPreference(CustomerPreference preference) {
         CustomerPreference setPreference = customerService.setPreference(authContext.getId(), preference);
         return Response.ok(setPreference).build();

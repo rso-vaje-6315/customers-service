@@ -1,6 +1,9 @@
 package si.rso.customers.services.impl;
 
 import com.mjamsek.auth.keycloak.exceptions.KeycloakException;
+import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
+import org.eclipse.microprofile.faulttolerance.Fallback;
+import org.eclipse.microprofile.faulttolerance.Timeout;
 import si.rso.customers.config.ServiceConfig;
 import si.rso.customers.integrations.keycloak.KeycloakAccountRegistration;
 import si.rso.customers.integrations.keycloak.KeycloakService;
@@ -39,16 +42,27 @@ public class CustomerServiceImpl implements CustomerService {
     @Inject
     private ServiceConfig serviceConfig;
     
+    @Timeout
+    @CircuitBreaker
+    @Fallback(fallbackMethod = "queryAccountsFallback")
     @Override
     public List<Account> queryAccounts(String query) {
         return keycloakService.getAccounts(query, 0, 25);
     }
     
+    private List<Account> queryAccountsFallback(String query) {
+        return new ArrayList<>();
+    }
+    
+    @CircuitBreaker
+    @Timeout
     @Override
     public Account getAccount(String accountId) {
         return keycloakService.getAccount(accountId);
     }
     
+    @CircuitBreaker
+    @Timeout
     @Override
     public CustomerDetails getCustomer(String accountId) {
         CustomerDetails details = new CustomerDetails();
@@ -131,6 +145,8 @@ public class CustomerServiceImpl implements CustomerService {
         return null;
     }
     
+    @CircuitBreaker
+    @Timeout
     @Override
     @Transactional
     public void registerUser(AccountRegistration account) {

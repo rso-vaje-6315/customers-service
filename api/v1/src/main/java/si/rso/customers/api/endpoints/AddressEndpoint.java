@@ -1,5 +1,6 @@
 package si.rso.customers.api.endpoints;
 
+import com.kumuluz.ee.logs.cdi.Log;
 import com.mjamsek.auth.keycloak.annotations.AuthenticatedAllowed;
 import com.mjamsek.auth.keycloak.annotations.RolesAllowed;
 import com.mjamsek.auth.keycloak.annotations.SecureResource;
@@ -9,7 +10,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import si.rso.customers.lib.CustomerAddress;
 import si.rso.customers.lib.config.AuthRole;
-import si.rso.customers.providers.AuthContext;
 import si.rso.customers.services.CustomerService;
 import si.rso.rest.exceptions.dto.ExceptionResponse;
 
@@ -19,6 +19,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+@Log
 @Path("/addresses")
 @RequestScoped
 @Produces(MediaType.APPLICATION_JSON)
@@ -28,9 +29,6 @@ public class AddressEndpoint {
     
     @Inject
     private CustomerService customerService;
-    
-    @Inject
-    private AuthContext authContext;
     
     @Operation(description = "Returns address with given id.",
         summary = "Returns address.", tags = "address",

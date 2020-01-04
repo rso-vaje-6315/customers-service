@@ -59,6 +59,10 @@ kumuluzee:
       password: postgres
       pool:
         max-size: 20
+  metrics:
+    web-instrumentation:
+      - name: customers-endpoint
+        url-pattern: /v1/customers/*
 kc:
   realm: rso
   auth-server-url: https://keycloak.mjamsek.com/auth

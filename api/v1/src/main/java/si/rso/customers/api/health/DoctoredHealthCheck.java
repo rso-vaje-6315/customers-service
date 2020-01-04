@@ -2,13 +2,13 @@ package si.rso.customers.api.health;
 
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
-import org.eclipse.microprofile.health.Readiness;
+import org.eclipse.microprofile.health.Liveness;
 import si.rso.customers.config.ServiceConfig;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-@Readiness
+@Liveness
 @ApplicationScoped
 public class DoctoredHealthCheck implements HealthCheck {
     

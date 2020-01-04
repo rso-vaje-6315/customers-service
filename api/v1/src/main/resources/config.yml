@@ -67,7 +67,7 @@ kumuluzee:
     server:
       url: localhost
       http:
-        port: 8443
+        port: 8444
 kc:
   realm: rso
   auth-server-url: https://keycloak.mjamsek.com/auth

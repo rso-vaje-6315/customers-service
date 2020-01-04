@@ -97,9 +97,15 @@ public class CustomerServiceImpl implements CustomerService {
         return AddressMapper.fromEntity(entity);
     }
     
+    @Transactional
     @Override
     public CustomerAddress createAddress(String accountId, CustomerAddress address) {
-        return null;
+        AddressEntity entity = AddressMapper.toEntity(address);
+        entity.setAccountId(accountId);
+        
+        em.persist(entity);
+        
+        return AddressMapper.fromEntity(entity);
     }
     
     @Override

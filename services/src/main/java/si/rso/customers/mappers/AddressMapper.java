@@ -24,4 +24,20 @@ public class AddressMapper {
         return address;
     }
     
+    public static AddressEntity toEntity(CustomerAddress address) {
+        AddressEntity entity = new AddressEntity();
+        
+        entity.setFirstName(address.getFirstName());
+        entity.setLastName(address.getLastName());
+        entity.setEmail(address.getEmail());
+        entity.setPhoneNumber(address.getPhoneNumber());
+        entity.setPost(address.getPost());
+        entity.setPostalCode(address.getPostalCode());
+        entity.setCountry(address.getCountry());
+        entity.setStreet(address.getStreet());
+        entity.setStreetNumber(address.getStreetNumber());
+        
+        return entity;
+    }
+    
 }

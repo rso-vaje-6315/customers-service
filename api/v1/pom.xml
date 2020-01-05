@@ -62,6 +62,10 @@
             <groupId>com.kumuluz.ee.grpc</groupId>
             <artifactId>kumuluzee-grpc</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.kumuluz.ee.discovery</groupId>
+            <artifactId>kumuluzee-discovery-consul</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>com.mjamsek.auth</groupId>

@@ -62,7 +62,7 @@ kumuluzee:
       username: postgres
       password: postgres
       pool:
-        max-size: 20
+        max-size: 10
   metrics:
     web-instrumentation:
       - name: customers-endpoint
@@ -71,7 +71,7 @@ kumuluzee:
     server:
       url: localhost
       http:
-        port: 8444
+        port: 8443
 kc:
   realm: rso
   auth-server-url: https://keycloak.mjamsek.com/auth

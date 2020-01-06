@@ -62,7 +62,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
     
     @CircuitBreaker
-    @Timeout
+    @Timeout(value = 3000)
     @Override
     public CustomerDetails getCustomer(String accountId) {
         CustomerDetails details = new CustomerDetails();

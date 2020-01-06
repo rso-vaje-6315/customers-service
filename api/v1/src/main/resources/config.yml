@@ -39,6 +39,10 @@ kumuluzee:
   config:
     consul:
       agent: http://localhost:8500
+  discovery:
+    cluster: cluster-id
+    consul:
+      agent: http://localhost:8500
   health:
     servlet:
       mapping: /health/
@@ -58,11 +62,16 @@ kumuluzee:
       username: postgres
       password: postgres
       pool:
-        max-size: 20
+        max-size: 10
   metrics:
     web-instrumentation:
       - name: customers-endpoint
         url-pattern: /v1/customers/*
+  grpc:
+    server:
+      url: localhost
+      http:
+        port: 8443
 kc:
   realm: rso
   auth-server-url: https://keycloak.mjamsek.com/auth

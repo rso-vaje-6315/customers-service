@@ -1,5 +1,6 @@
 package si.rso.customers.api;
 
+import com.kumuluz.ee.discovery.annotations.RegisterService;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
@@ -25,6 +26,7 @@ import java.util.Set;
         description = "Orchestration service for integration with Keycloak server."),
     servers = @Server(url = "http://localhost:8080/v1")
 )
+@RegisterService
 public class RestService extends Application {
     
     @Override

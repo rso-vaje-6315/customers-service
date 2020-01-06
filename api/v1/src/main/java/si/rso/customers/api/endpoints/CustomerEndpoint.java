@@ -87,7 +87,7 @@ public class CustomerEndpoint {
     @GET
     @Path("/me")
     @AuthenticatedAllowed
-    @Timed(name = "get-account-time")
+    @Timed(name = "get-account-time-me")
     public Response getAccount(@QueryParam("expand") @DefaultValue("true") boolean expand) {
         if (expand) {
             return Response.ok(customerService.getCustomer(authContext.getId())).build();

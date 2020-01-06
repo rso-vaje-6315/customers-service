@@ -1,0 +1,1 @@
+insert into addresses(id, "timestamp", account_id, country, email, first_name, last_name, phone_number, post, postal_code, street, street_number) values ('e3cebea3-2d46-42b2-b60d-f3abf0bfc3f7', NOW(), '173c09a4-5016-4f21-923a-12d979d212b3', 'Slovenia', 'miha_jamsek@windowslive.com', 'Miha', 'Jamšek', '+38670999999', 'Nova Gorica', '5000', 'Svetčeva', '9');

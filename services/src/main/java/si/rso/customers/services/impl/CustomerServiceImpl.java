@@ -55,14 +55,14 @@ public class CustomerServiceImpl implements CustomerService {
     }
     
     @CircuitBreaker
-    @Timeout
+    @Timeout(value = 3000)
     @Override
     public Account getAccount(String accountId) {
         return keycloakService.getAccount(accountId);
     }
     
     @CircuitBreaker
-    @Timeout
+    @Timeout(value = 3000)
     @Override
     public CustomerDetails getCustomer(String accountId) {
         CustomerDetails details = new CustomerDetails();
@@ -97,9 +97,15 @@ public class CustomerServiceImpl implements CustomerService {
         return AddressMapper.fromEntity(entity);
     }
     
+    @Transactional
     @Override
     public CustomerAddress createAddress(String accountId, CustomerAddress address) {
-        return null;
+        AddressEntity entity = AddressMapper.toEntity(address);
+        entity.setAccountId(accountId);
+        
+        em.persist(entity);
+        
+        return AddressMapper.fromEntity(entity);
     }
     
     @Override

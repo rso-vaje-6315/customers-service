@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.servers.Server;
 import si.rso.customers.api.endpoints.PlagueEndpoint;
+import si.rso.customers.api.mappers.KeycloakExceptionMapper;
 import si.rso.customers.api.mappers.ValidationExceptionMapper;
 import si.rso.customers.lib.config.AuthRole;
 import si.rso.customers.api.endpoints.AddressEndpoint;
@@ -40,6 +41,7 @@ public class RestService extends Application {
         
         classes.add(RestExceptionMapper.class);
         classes.add(ValidationExceptionMapper.class);
+        classes.add(KeycloakExceptionMapper.class);
         
         return classes;
     }

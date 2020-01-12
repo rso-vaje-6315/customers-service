@@ -17,6 +17,7 @@ import javax.inject.Inject;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import java.net.URI;
+import java.security.Key;
 import java.util.List;
 
 @ApplicationScoped
@@ -38,7 +39,7 @@ public class KeycloakServiceImpl implements KeycloakService {
     }
     
     @Override
-    public List<Account> getAccounts(String query, int offset, int limit) {
+    public List<Account> getAccounts(String query, int offset, int limit) throws KeycloakException {
         return KeycloakClient.callKeycloak((token) -> {
             try {
                 return keycloakAPI.getAccounts(
@@ -61,7 +62,7 @@ public class KeycloakServiceImpl implements KeycloakService {
     }
     
     @Override
-    public Account getAccount(String accountId) {
+    public Account getAccount(String accountId) throws KeycloakException {
         return KeycloakClient.callKeycloak((token) -> {
             try {
                 return keycloakAPI.getAccount(
@@ -82,7 +83,7 @@ public class KeycloakServiceImpl implements KeycloakService {
     }
     
     @Override
-    public String registerAccount(KeycloakAccountRegistration account) {
+    public String registerAccount(KeycloakAccountRegistration account) throws KeycloakException {
         return KeycloakClient.callKeycloak((token) -> {
             try {
                 Response response = keycloakAPI.registerAccount(

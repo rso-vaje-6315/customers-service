@@ -1,5 +1,7 @@
 package si.rso.customers.api.endpoints;
 
+import com.kumuluz.ee.logs.LogManager;
+import com.kumuluz.ee.logs.Logger;
 import com.kumuluz.ee.logs.cdi.Log;
 import com.mjamsek.auth.keycloak.annotations.AuthenticatedAllowed;
 import com.mjamsek.auth.keycloak.annotations.RolesAllowed;
@@ -34,6 +36,8 @@ import java.net.URI;
 @Consumes(MediaType.APPLICATION_JSON)
 @SecureResource
 public class CustomerEndpoint {
+    
+    public static final Logger LOG = LogManager.getLogger(CustomerEndpoint.class.getSimpleName());
     
     @Inject
     private CustomerService customerService;
@@ -90,6 +94,7 @@ public class CustomerEndpoint {
     @Timed(name = "get-account-time-me")
     public Response getAccount(@QueryParam("expand") @DefaultValue("true") boolean expand) {
         if (expand) {
+            LOG.info("Retrieving expanded customer details");
             return Response.ok(customerService.getCustomer(authContext.getId())).build();
         }
         return Response.ok(customerService.getAccount(authContext.getId())).build();

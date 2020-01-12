@@ -1,5 +1,7 @@
 package si.rso.customers.services.impl;
 
+import com.kumuluz.ee.logs.LogManager;
+import com.kumuluz.ee.logs.Logger;
 import com.mjamsek.auth.keycloak.exceptions.KeycloakException;
 import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
 import org.eclipse.microprofile.faulttolerance.Fallback;
@@ -29,6 +31,8 @@ import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class CustomerServiceImpl implements CustomerService {
+    
+    public static final Logger LOG = LogManager.getLogger(CustomerServiceImpl.class.getSimpleName());
     
     @PersistenceContext(unitName = "main-jpa-unit")
     private EntityManager em;
@@ -64,15 +68,21 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerDetails getCustomer(String accountId) {
         CustomerDetails details = new CustomerDetails();
-        
+    
+        LOG.info("Contacting keycloak for account data.");
         Account account = keycloakService.getAccount(accountId);
         details.setAccount(account);
-        
+        LOG.info("Retrieved account for user {}", account.getUsername());
+    
+        LOG.info("Retrieving customer addresses.");
         List<CustomerAddress> addresses = getAddresses(accountId);
         details.setAddresses(addresses);
-        
+        LOG.info("Retrieved addresses for user. Count: {}", addresses.size());
+    
+        LOG.info("Retrieving preferences for customer.");
         List<CustomerPreference> preferences = getPreferences(accountId);
         details.setPreferences(preferences);
+        LOG.info("Retrived preferences of size: {}", preferences.size());
         
         return details;
     }

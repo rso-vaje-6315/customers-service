@@ -17,7 +17,6 @@ import javax.inject.Inject;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import java.net.URI;
-import java.security.Key;
 import java.util.List;
 
 @ApplicationScoped
@@ -65,6 +64,7 @@ public class KeycloakServiceImpl implements KeycloakService {
     public Account getAccount(String accountId) throws KeycloakException {
         return KeycloakClient.callKeycloak((token) -> {
             try {
+                LOG.info("Performing service call to realm '{}' for account '{}'", keycloakConfig.getRealm(), accountId);
                 return keycloakAPI.getAccount(
                     keycloakConfig.getRealm(),
                     accountId,

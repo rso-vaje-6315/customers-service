@@ -61,8 +61,6 @@ public class CustomerServiceImpl implements CustomerService {
         return keycloakService.getAccount(accountId);
     }
     
-    @CircuitBreaker
-    @Timeout(value = 3000)
     @Override
     public CustomerDetails getCustomer(String accountId) {
         CustomerDetails details = new CustomerDetails();

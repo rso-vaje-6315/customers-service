@@ -1,5 +1,7 @@
 package si.rso.customers.integrations.keycloak.impl;
 
+import com.kumuluz.ee.logs.LogManager;
+import com.kumuluz.ee.logs.Logger;
 import com.mjamsek.auth.keycloak.exceptions.KeycloakException;
 import com.mjamsek.auth.keycloak.services.KeycloakClient;
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
@@ -19,6 +21,8 @@ import java.util.List;
 
 @ApplicationScoped
 public class KeycloakServiceImpl implements KeycloakService {
+    
+    public static final Logger LOG = LogManager.getLogger(KeycloakServiceImpl.class.getSimpleName());
     
     @Inject
     private KeycloakConfig keycloakConfig;
@@ -45,6 +49,11 @@ public class KeycloakServiceImpl implements KeycloakService {
                     offset
                 );
             } catch (WebApplicationException e) {
+                LOG.error("Error calling keycloak. Status: {}, message: {}", e.getResponse().getStatus(), e.getMessage());
+                if (e.getResponse().hasEntity()) {
+                    String responseBody = e.getResponse().readEntity(String.class);
+                    LOG.error("Response body: {}", responseBody);
+                }
                 e.printStackTrace();
                 throw new KeycloakException(e);
             }
@@ -61,6 +70,11 @@ public class KeycloakServiceImpl implements KeycloakService {
                     generateAuthHeader(token)
                 );
             } catch (WebApplicationException e) {
+                LOG.error("Error calling keycloak. Status: {}, message: {}", e.getResponse().getStatus(), e.getMessage());
+                if (e.getResponse().hasEntity()) {
+                    String responseBody = e.getResponse().readEntity(String.class);
+                    LOG.error("Response body: {}", responseBody);
+                }
                 e.printStackTrace();
                 throw new KeycloakException(e);
             }

@@ -1,6 +1,5 @@
 package si.rso.customers.api.endpoints;
 
-import com.kumuluz.ee.logs.cdi.Log;
 import com.mjamsek.auth.keycloak.annotations.AuthenticatedAllowed;
 import com.mjamsek.auth.keycloak.annotations.RolesAllowed;
 import com.mjamsek.auth.keycloak.annotations.SecureResource;
@@ -19,7 +18,6 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Log
 @Path("/addresses")
 @RequestScoped
 @Produces(MediaType.APPLICATION_JSON)

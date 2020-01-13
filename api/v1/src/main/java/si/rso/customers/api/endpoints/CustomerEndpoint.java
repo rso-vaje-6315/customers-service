@@ -2,7 +2,6 @@ package si.rso.customers.api.endpoints;
 
 import com.kumuluz.ee.logs.LogManager;
 import com.kumuluz.ee.logs.Logger;
-import com.kumuluz.ee.logs.cdi.Log;
 import com.mjamsek.auth.keycloak.annotations.AuthenticatedAllowed;
 import com.mjamsek.auth.keycloak.annotations.RolesAllowed;
 import com.mjamsek.auth.keycloak.annotations.SecureResource;
@@ -29,7 +28,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URI;
 
-@Log
+
 @Path("/customers")
 @RequestScoped
 @Produces(MediaType.APPLICATION_JSON)

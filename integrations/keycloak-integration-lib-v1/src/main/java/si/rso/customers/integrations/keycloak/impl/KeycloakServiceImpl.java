@@ -78,6 +78,9 @@ public class KeycloakServiceImpl implements KeycloakService {
                 }
                 e.printStackTrace();
                 throw new KeycloakException(e);
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new KeycloakException(e.getMessage());
             }
         });
     }

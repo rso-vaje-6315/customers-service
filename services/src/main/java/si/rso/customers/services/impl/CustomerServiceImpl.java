@@ -58,11 +58,16 @@ public class CustomerServiceImpl implements CustomerService {
         return new ArrayList<>();
     }
     
-    @CircuitBreaker
-    @Timeout(value = 3000)
     @Override
     public Account getAccount(String accountId) {
-        return keycloakService.getAccount(accountId);
+        try {
+            return keycloakService.getAccount(accountId);
+        } catch (Exception e) {
+            // Fallback
+            Account account = new Account();
+            account.setId(accountId);
+            return account;
+        }
     }
     
     @Override
@@ -70,9 +75,16 @@ public class CustomerServiceImpl implements CustomerService {
         CustomerDetails details = new CustomerDetails();
     
         LOG.info("Contacting keycloak for account data.");
-        Account account = keycloakService.getAccount(accountId);
-        details.setAccount(account);
-        LOG.info("Retrieved account for user {}", account.getUsername());
+        try {
+            Account account = keycloakService.getAccount(accountId);
+            details.setAccount(account);
+            LOG.info("Retrieved account for user {}", account.getUsername());
+        } catch (Exception e) {
+            // Fallback
+            Account account = new Account();
+            account.setId(accountId);
+            details.setAccount(new Account());
+        }
     
         LOG.info("Retrieving customer addresses.");
         List<CustomerAddress> addresses = getAddresses(accountId);

@@ -24,8 +24,8 @@ public class GrpcCustomerEndpoint extends CustomersServiceGrpc.CustomersServiceI
     
             var accountResponseBuilder = Customers.Account.newBuilder()
                 .setId(account.getId())
-                .setFirstName(account.getFirstName())
-                .setLastName(account.getLastName());
+                .setFirstName("account.getFirstName()")
+                .setLastName("account.getLastName()");
     
             var addressResponseBuilder = Customers.CustomerAddress.newBuilder()
                 .setId(address.getId())

@@ -69,7 +69,6 @@ kumuluzee:
         url-pattern: /v1/customers/*
   grpc:
     server:
-      url: localhost
       http:
         port: 8443
 kc:
